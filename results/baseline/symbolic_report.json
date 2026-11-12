@@ -1,0 +1,300 @@
+{
+    "tool": "AegisQ-NeuroSymbolic",
+    "component": "AegisQ Neuro-Symbolic Assessment",
+    "target": "/home/fatal/AegisQ-NeuroSymbolic/samples/python",
+    "findings_count": 14,
+    "findings": [
+        {
+            "algorithm": "AES-GCM",
+            "operation": "authenticated_encryption",
+            "context": "authenticated_encryption",
+            "line": 4,
+            "api": "cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+            "evidence": "AESGCM(key)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "aes_example.py",
+            "symbolic_assessment": {
+                "crypto_family": "symmetric_cryptography",
+                "quantum_assessment": "quantum_security_margin_review",
+                "security_status": "CONFIGURATION_REVIEW",
+                "priority": "MEDIUM",
+                "reason": "AES is symmetric cryptography. Grover's algorithm can affect its theoretical security margin, but AES is not threatened in the same way as RSA or ECC.",
+                "recommendation": "Inspect key length, nonce uniqueness, authentication tag configuration, and implementation. Evaluate AES-256 when a larger quantum security margin is required.",
+                "limitations": "API detection does not reveal the actual key length, nonce lifecycle, or complete encryption workflow.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 3,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.generate_private_key",
+            "evidence": "ec.generate_private_key(\n    ec.SECP256R1()\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_example.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_USAGE_REVIEW",
+                "priority": "MEDIUM",
+                "reason": "ECC key generation was detected. Classical elliptic-curve cryptography can be threatened by Shor's algorithm on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Trace the generated key to determine whether it supports ECDSA signatures, ECDH key exchange, or another operation. Select the migration strategy according to its actual purpose.",
+                "limitations": "Key generation alone does not identify the cryptographic purpose or prove production use.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 4,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.generate_private_key",
+            "evidence": "ec.generate_private_key(ec.SECP256R1())",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_USAGE_REVIEW",
+                "priority": "MEDIUM",
+                "reason": "ECC key generation was detected. Classical elliptic-curve cryptography can be threatened by Shor's algorithm on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Trace the generated key to determine whether it supports ECDSA signatures, ECDH key exchange, or another operation. Select the migration strategy according to its actual purpose.",
+                "limitations": "Key generation alone does not identify the cryptographic purpose or prove production use.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_operation",
+            "context": "digital_signature",
+            "line": 10,
+            "api": "ECC.sign",
+            "evidence": "private_key.sign(\n    b\"important message\",\n    ec.ECDSA(None)\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_SIGNATURE_MIGRATION_REVIEW",
+                "priority": "HIGH",
+                "reason": "ECC is used in a digital-signature context. Shor's algorithm could threaten classical elliptic-curve signatures on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Review the signature protocol and evaluate ML-DSA as a post-quantum signature candidate. Consider certificate size, compatibility, and verification requirements.",
+                "limitations": "API detection does not prove production use, security-critical reachability, or complete signature workflow.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_scheme",
+            "context": "digital_signature",
+            "line": 12,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.ECDSA",
+            "evidence": "ec.ECDSA(None)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_SIGNATURE_MIGRATION_REVIEW",
+                "priority": "HIGH",
+                "reason": "ECC is used in a digital-signature context. Shor's algorithm could threaten classical elliptic-curve signatures on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Review the signature protocol and evaluate ML-DSA as a post-quantum signature candidate. Consider certificate size, compatibility, and verification requirements.",
+                "limitations": "API detection does not prove production use, security-critical reachability, or complete signature workflow.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_verification",
+            "context": "digital_signature",
+            "line": 16,
+            "api": "ECC.verify",
+            "evidence": "public_key.verify(\n    signature,\n    b\"important message\",\n    ec.ECDSA(None)\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_SIGNATURE_MIGRATION_REVIEW",
+                "priority": "HIGH",
+                "reason": "ECC is used in a digital-signature context. Shor's algorithm could threaten classical elliptic-curve signatures on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Review the signature protocol and evaluate ML-DSA as a post-quantum signature candidate. Consider certificate size, compatibility, and verification requirements.",
+                "limitations": "API detection does not prove production use, security-critical reachability, or complete signature workflow.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_scheme",
+            "context": "digital_signature",
+            "line": 19,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.ECDSA",
+            "evidence": "ec.ECDSA(None)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_SIGNATURE_MIGRATION_REVIEW",
+                "priority": "HIGH",
+                "reason": "ECC is used in a digital-signature context. Shor's algorithm could threaten classical elliptic-curve signatures on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Review the signature protocol and evaluate ML-DSA as a post-quantum signature candidate. Consider certificate size, compatibility, and verification requirements.",
+                "limitations": "API detection does not prove production use, security-critical reachability, or complete signature workflow.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "key_exchange_scheme",
+            "context": "key_exchange",
+            "line": 23,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.ECDH",
+            "evidence": "ec.ECDH()",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_KEY_ESTABLISHMENT_REVIEW",
+                "priority": "HIGH",
+                "reason": "ECC is used in a key-exchange context. Classical elliptic-curve key agreement can be threatened by Shor's algorithm on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Evaluate ML-KEM-based key establishment and hybrid classical/post-quantum approaches. Inspect protocol support and interoperability.",
+                "limitations": "Detecting an ECDH scheme does not prove that a key exchange is executed or exposed over a network.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 3,
+            "api": "cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key",
+            "evidence": "rsa.generate_private_key(\n    public_exponent=65537,\n    key_size=2048\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_example.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_USAGE_REVIEW",
+                "priority": "MEDIUM",
+                "reason": "RSA key generation was detected. RSA is a classical public-key algorithm vulnerable in principle to Shor's algorithm on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Trace where the generated key is used. Determine whether it supports signatures, encryption, or key establishment, then select a suitable post-quantum migration strategy.",
+                "limitations": "Key generation alone does not establish the key's purpose, use, exposure, or production status.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 4,
+            "api": "cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key",
+            "evidence": "rsa.generate_private_key(\n    public_exponent=65537,\n    key_size=2048\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_USAGE_REVIEW",
+                "priority": "MEDIUM",
+                "reason": "RSA key generation was detected. RSA is a classical public-key algorithm vulnerable in principle to Shor's algorithm on a sufficiently capable fault-tolerant quantum computer.",
+                "recommendation": "Trace where the generated key is used. Determine whether it supports signatures, encryption, or key establishment, then select a suitable post-quantum migration strategy.",
+                "limitations": "Key generation alone does not establish the key's purpose, use, exposure, or production status.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "signature_padding",
+            "context": "digital_signature",
+            "line": 12,
+            "api": "cryptography.hazmat.primitives.asymmetric.padding.PSS",
+            "evidence": "padding.PSS(\n    mgf=padding.MGF1(hashes.SHA256()),\n    salt_length=padding.PSS.MAX_LENGTH\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_SIGNATURE_MIGRATION_REVIEW",
+                "priority": "HIGH",
+                "reason": "RSA is used in a digital-signature context. A sufficiently capable fault-tolerant quantum computer could threaten RSA using Shor's algorithm.",
+                "recommendation": "Review the signature protocol and assess ML-DSA as a post-quantum signature candidate. Check certificate, interoperability, and verification requirements before migration.",
+                "limitations": "Static API analysis does not establish key size, production exposure, protocol reachability, or whether the signature operation is security-critical.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "encryption_padding",
+            "context": "encryption",
+            "line": 18,
+            "api": "cryptography.hazmat.primitives.asymmetric.padding.OAEP",
+            "evidence": "padding.OAEP(\n    mgf=padding.MGF1(hashes.SHA256()),\n    algorithm=hashes.SHA256(),\n    label=None\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_ENCRYPTION_ARCHITECTURE_REVIEW",
+                "priority": "HIGH",
+                "reason": "RSA is used in an encryption-related context. RSA's security relies on integer factorization, which a sufficiently capable quantum computer could threaten using Shor's algorithm.",
+                "recommendation": "Review the complete encryption architecture. For new key-establishment designs, evaluate ML-KEM and hybrid key establishment, followed by symmetric authenticated encryption. Do not treat ML-KEM as a direct drop-in replacement for arbitrary RSA data encryption.",
+                "limitations": "The detected operation does not establish the encrypted data, key-management design, padding security, or production usage.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "signature_operation",
+            "context": "digital_signature",
+            "line": 25,
+            "api": "RSA.sign",
+            "evidence": "private_key.sign(\n    b\"test message\",\n    signature_padding,\n    hashes.SHA256()\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_SIGNATURE_MIGRATION_REVIEW",
+                "priority": "HIGH",
+                "reason": "RSA is used in a digital-signature context. A sufficiently capable fault-tolerant quantum computer could threaten RSA using Shor's algorithm.",
+                "recommendation": "Review the signature protocol and assess ML-DSA as a post-quantum signature candidate. Check certificate, interoperability, and verification requirements before migration.",
+                "limitations": "Static API analysis does not establish key size, production exposure, protocol reachability, or whether the signature operation is security-critical.",
+                "confirmed_vulnerability": false
+            }
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "encryption_operation",
+            "context": "encryption",
+            "line": 32,
+            "api": "RSA.encrypt",
+            "evidence": "public_key.encrypt(\n    b\"test message\",\n    encryption_padding\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py",
+            "symbolic_assessment": {
+                "crypto_family": "classical_public_key",
+                "quantum_assessment": "quantum_vulnerable_algorithm",
+                "security_status": "PQC_ENCRYPTION_ARCHITECTURE_REVIEW",
+                "priority": "HIGH",
+                "reason": "RSA is used in an encryption-related context. RSA's security relies on integer factorization, which a sufficiently capable quantum computer could threaten using Shor's algorithm.",
+                "recommendation": "Review the complete encryption architecture. For new key-establishment designs, evaluate ML-KEM and hybrid key establishment, followed by symmetric authenticated encryption. Do not treat ML-KEM as a direct drop-in replacement for arbitrary RSA data encryption.",
+                "limitations": "The detected operation does not establish the encrypted data, key-management design, padding security, or production usage.",
+                "confirmed_vulnerability": false
+            }
+        }
+    ],
+    "scan_errors": [],
+    "rules_engine": {
+        "version": "0.2.0",
+        "findings_evaluated": 14,
+        "priority_counts": {
+            "HIGH": 9,
+            "MEDIUM": 5,
+            "LOW": 0,
+            "UNKNOWN": 0
+        },
+        "note": "Assessments indicate review priorities, not confirmed vulnerabilities or proof of exploitability."
+    }
+}

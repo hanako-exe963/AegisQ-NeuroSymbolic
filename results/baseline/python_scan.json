@@ -1,0 +1,149 @@
+{
+    "tool": "AegisQ-NeuroSymbolic",
+    "component": "Python Cryptographic Analyzer",
+    "target": "/home/fatal/AegisQ-NeuroSymbolic/samples/python",
+    "findings_count": 14,
+    "findings": [
+        {
+            "algorithm": "AES-GCM",
+            "operation": "authenticated_encryption",
+            "context": "authenticated_encryption",
+            "line": 4,
+            "api": "cryptography.hazmat.primitives.ciphers.aead.AESGCM",
+            "evidence": "AESGCM(key)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "aes_example.py"
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 3,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.generate_private_key",
+            "evidence": "ec.generate_private_key(\n    ec.SECP256R1()\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_example.py"
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 4,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.generate_private_key",
+            "evidence": "ec.generate_private_key(ec.SECP256R1())",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py"
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_operation",
+            "context": "digital_signature",
+            "line": 10,
+            "api": "ECC.sign",
+            "evidence": "private_key.sign(\n    b\"important message\",\n    ec.ECDSA(None)\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py"
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_scheme",
+            "context": "digital_signature",
+            "line": 12,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.ECDSA",
+            "evidence": "ec.ECDSA(None)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py"
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_verification",
+            "context": "digital_signature",
+            "line": 16,
+            "api": "ECC.verify",
+            "evidence": "public_key.verify(\n    signature,\n    b\"important message\",\n    ec.ECDSA(None)\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py"
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "signature_scheme",
+            "context": "digital_signature",
+            "line": 19,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.ECDSA",
+            "evidence": "ec.ECDSA(None)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py"
+        },
+        {
+            "algorithm": "ECC",
+            "operation": "key_exchange_scheme",
+            "context": "key_exchange",
+            "line": 23,
+            "api": "cryptography.hazmat.primitives.asymmetric.ec.ECDH",
+            "evidence": "ec.ECDH()",
+            "classification": "API_USAGE_DETECTED",
+            "file": "ecc_operations.py"
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 3,
+            "api": "cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key",
+            "evidence": "rsa.generate_private_key(\n    public_exponent=65537,\n    key_size=2048\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_example.py"
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "key_generation",
+            "context": "key_generation",
+            "line": 4,
+            "api": "cryptography.hazmat.primitives.asymmetric.rsa.generate_private_key",
+            "evidence": "rsa.generate_private_key(\n    public_exponent=65537,\n    key_size=2048\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py"
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "signature_padding",
+            "context": "digital_signature",
+            "line": 12,
+            "api": "cryptography.hazmat.primitives.asymmetric.padding.PSS",
+            "evidence": "padding.PSS(\n    mgf=padding.MGF1(hashes.SHA256()),\n    salt_length=padding.PSS.MAX_LENGTH\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py"
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "encryption_padding",
+            "context": "encryption",
+            "line": 18,
+            "api": "cryptography.hazmat.primitives.asymmetric.padding.OAEP",
+            "evidence": "padding.OAEP(\n    mgf=padding.MGF1(hashes.SHA256()),\n    algorithm=hashes.SHA256(),\n    label=None\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py"
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "signature_operation",
+            "context": "digital_signature",
+            "line": 25,
+            "api": "RSA.sign",
+            "evidence": "private_key.sign(\n    b\"test message\",\n    signature_padding,\n    hashes.SHA256()\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py"
+        },
+        {
+            "algorithm": "RSA",
+            "operation": "encryption_operation",
+            "context": "encryption",
+            "line": 32,
+            "api": "RSA.encrypt",
+            "evidence": "public_key.encrypt(\n    b\"test message\",\n    encryption_padding\n)",
+            "classification": "API_USAGE_DETECTED",
+            "file": "rsa_operations.py"
+        }
+    ],
+    "scan_errors": []
+}
